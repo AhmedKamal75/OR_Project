@@ -1,4 +1,4 @@
-# OR_Project
+# Tandem Queueing System Simulation
 
 This repository contains a Python implementation of a tandem queueing system simulation, designed for an Operations Research (OR) course. The simulation models the behavior of two single-server queues in series, where customers arrive at the first queue, get served, move to the second queue, get served again, and finally leave the system.
 
@@ -6,7 +6,7 @@ This repository contains a Python implementation of a tandem queueing system sim
 
 The project aims to:
 
-* **Simulate a tandem queueing system:**  Implement a SimPy-based simulation to model the arrival, service, and departure of customers in a two-queue system.
+* **Simulate a tandem queueing system:** Implement a SimPy-based simulation to model the arrival, service, and departure of customers in a two-queue system.
 * **Analyze system performance:** Calculate the time average number of customers in the system and compare the results with theoretical predictions from queueing theory.
 * **Visualize queue dynamics:** Generate plots of queue lengths over time to visualize the behavior of the system.
 
@@ -64,4 +64,3 @@ The simulation results include:
 ## Contributing
 
 Contributions to this project are welcome! Feel free to submit pull requests with bug fixes, improvements, or new features.
-

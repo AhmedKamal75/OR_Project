@@ -232,6 +232,28 @@ def setup(env, lambda_, mu1, mu2, capacity1, capacity2, q, log):
 
     return (queue1, queue2)
 
+def calculate_time_average(points):
+    """Calculates the time average of a list of points using the trapezoidal rule.
+
+    This function takes a list of points, where each point is a tuple (time, value), and calculates
+    the time average of the values using the trapezoidal rule.
+
+    Args:
+        points: A list of tuples representing the points (time, value).
+
+    Returns:
+        The time average of the values.
+    """
+    sum = 0.0
+    # queue_length_at_events
+    for i in range(len(points) - 1):
+        time1 = points[i][0]
+        time2 = points[i + 1][0]
+        length1 = points[i][1]
+        length2 = points[i + 1][1]
+        sum = sum + (0.5) * (time2 - time1) * (length1 + length2) 
+    return sum
+
 def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
     """Runs the simulation of the tandem queueing system.
 
@@ -249,6 +271,8 @@ def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
         N: The number of simulation runs to perform.
         log: A boolean flag indicating whether to print log messages during the simulation.
     """
+    results_at_events = []
+    results_at_time_intervals = []
     results = []
     for _ in range(N):
         env = simpy.Environment()
@@ -257,14 +281,20 @@ def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
 
         # Calculate time average number of customers
         total_customers = 0
+        total_customers_at_events = (calculate_time_average(queue1.queue_length_at_events) + calculate_time_average(queue2.queue_length_at_events)) / T
+        total_customers_at_time_intervals = (calculate_time_average(queue1.queue_length_over_time) + calculate_time_average(queue2.queue_length_over_time)) / T
         for time, length in queue1.queue_length_over_time + queue2.queue_length_over_time:
             total_customers += length
         time_average_customers = total_customers / env.now
 
+        results_at_time_intervals.append(total_customers_at_time_intervals)
+        results_at_events.append(total_customers_at_events)
         results.append(time_average_customers)
 
     # Print results
     print(f"Lambda: {lambda_}, Mu1: {mu1}, Mu2: {mu2}, T: {T}, Q: {q}")
+    print(f"Average time average customers at time intervals: {np.mean(results_at_time_intervals):.2f}")
+    print(f"Average time average customers at events: {np.mean(results_at_events):.2f}")  # Format output
     print(f"Average time average customers: {np.mean(results):.2f}")  # Format output
     print(f"Standard deviation: {np.std(results):.2f}")  # Format output
 
@@ -282,9 +312,13 @@ def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
 if __name__ == "__main__":
     # Test cases
     log = False
-    for lambda_ in [1, 5]:
-        for mu1 in [2, 4]:
-            for mu2 in [3, 4]:
-                for T in [10, 50, 100, 1000]:
-                    run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=0, T=T, log=log)
-                    run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
+    run(lambda_=3, mu1=4, mu2=2, capacity1=1, capacity2=1, q=0, T=100, log=log)
+    # for lambda_ in [1, 5]:
+    #     for mu1 in [2, 4]:
+    #         for mu2 in [3, 4]:
+    #             for T in [10, 50, 100, 1000]:
+    #                 run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=0, T=T, log=log)
+    #                 run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
+
+
+
