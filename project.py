@@ -291,11 +291,13 @@ def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
         results_at_events.append(total_customers_at_events)
         results.append(time_average_customers)
 
+    print("############## RESULTS ##############")
     # Print results
     print(f"Lambda: {lambda_}, Mu1: {mu1}, Mu2: {mu2}, T: {T}, Q: {q}")
-    print(f"Average time average customers at time intervals: {np.mean(results_at_time_intervals):.2f}")
+    # print(f"Average time average customers at time intervals: {np.mean(results_at_time_intervals):.2f}")
     print(f"Average time average customers at events: {np.mean(results_at_events):.2f}")  # Format output
-    print(f"Average time average customers: {np.mean(results):.2f}")  # Format output
+    # print(f"Average time average customers: {np.mean(results):.2f}")  # Format output
+    print(f"Average customer using stationary distribution: {(lambda_/(mu1 - lambda_)) + (lambda_/(mu2 - lambda_))}")
     print(f"Standard deviation: {np.std(results):.2f}")  # Format output
 
     # Plot queue lengths for one run
