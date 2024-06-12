@@ -295,10 +295,9 @@ def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
     # Print results
     print(f"Lambda: {lambda_}, Mu1: {mu1}, Mu2: {mu2}, T: {T}, Q: {q}")
     # print(f"Average time average customers at time intervals: {np.mean(results_at_time_intervals):.2f}")
-    print(f"Average time average customers at events: {np.mean(results_at_events):.2f}")  # Format output
-    # print(f"Average time average customers: {np.mean(results):.2f}")  # Format output
+    # print(f"Average time average customers at events: {np.mean(results_at_events):.2f}")  # Format output
+    print(f"Average time average customers: {np.mean(results):.2f}, Standard deviation: {np.std(results):.2f}")  # Format output
     print(f"Average customer using stationary distribution: {(lambda_/(mu1 - lambda_)) + (lambda_/(mu2 - lambda_))}")
-    print(f"Standard deviation: {np.std(results):.2f}")  # Format output
 
     # Plot queue lengths for one run
     if q == 1000 and T == 2000:
@@ -314,13 +313,16 @@ def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
 if __name__ == "__main__":
     # Test cases
     log = False
-    # run(lambda_=3, mu1=4, mu2=2, capacity1=1, capacity2=1, q=0, T=100, log=log)
-    for lambda_ in [1, 5]:
-        for mu1 in [2, 4]:
-            for mu2 in [3, 4]:
-                for T in [10, 50, 100, 1000]:
-                    run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=0, T=T, log=log)
-                    run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
+    run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=0, T=10000, log=log)
+    run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=0, T=2000, log=log)
+    run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
+
+    # for lambda_ in [1, 5]:
+    #     for mu1 in [2, 4]:
+    #         for mu2 in [3, 4]:
+    #             for T in [10, 50, 100, 1000]:
+    #                 run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=0, T=T, log=log)
+    #                 run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
 
 
 
