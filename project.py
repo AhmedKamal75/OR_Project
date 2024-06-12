@@ -313,16 +313,16 @@ def run(lambda_, mu1, mu2, capacity1, capacity2, q, T, N=10,log=True):
 if __name__ == "__main__":
     # Test cases
     log = False
-    run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=0, T=10000, log=log)
-    run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=0, T=2000, log=log)
-    run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
+    # run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=0, T=10000, log=log)
+    # run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=0, T=2000, log=log)
+    # run(lambda_=1, mu1=4, mu2=4, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
 
-    # for lambda_ in [1, 5]:
-    #     for mu1 in [2, 4]:
-    #         for mu2 in [3, 4]:
-    #             for T in [10, 50, 100, 1000]:
-    #                 run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=0, T=T, log=log)
-    #                 run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
+    for lambda_ in [1, 5]:
+        for mu1 in [2, 4]:
+            for mu2 in [3, 4]:
+                for T in [10, 50, 100, 1000]:
+                    run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=0, T=T, log=log)
+                    run(lambda_=lambda_, mu1=mu1, mu2=mu2, capacity1=1, capacity2=1, q=1000, T=2000, log=log)
 
 
 
